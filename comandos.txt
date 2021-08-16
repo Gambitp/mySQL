@@ -1,0 +1,79 @@
+select*from sakila.inventory where film_id >50;
+
+select distinct (amount) from sakila.payment where amount<3;
+
+select*from sakila.staff where staff_id <>2;
+
+select*from sakila.language where name <>'German';
+
+select description,release_year from sakila.film where title='IMPACT ALADDIN';
+
+select distinct(amount) from sakila.payment where amount>0.99;
+
+select*from sakila.country where country='Algeria' and country_id=12;
+
+select*from sakila.country where country='Algeria' and country_id=2;
+
+select*from sakila.country where country='Algeria' or country_id=12;
+
+select*from sakila.payment where customer_id=36 and amount>0.99 and staff_id=1;
+
+select*from sakila.rental where not staff_id=1 and customer_id>250 and inventory_id<100;
+
+select*from sakila.customer where first_name in ('MARY','PATRICIA');
+
+select*from sakila.film where special_features in ('Trailers','Trailers,Deleated Scenes') and rating in ('G','NC-17') and length > 100; 
+
+select*from sakila.film_text where title in('ZORRO ARK','VIRGIN DAISY','UNITED PLOT');
+
+select*from sakila.city where city in ('Chiayi','Dongying','Fukuyama','Kilis');
+
+select*from sakila.rental where (customer_id between 300 and 350) and rental_id = 457;
+
+select*from sakila.payment where (amount between 2.99 and 4.99) and staff_id = 2 and customer_id in (1,2);
+
+select*from sakila.address where city_id between 300 and 350;
+
+select*from sakila.film where (rental_rate between 0.99 and 2.99) and length <=50 and replacement_cost <20;
+
+select*from sakila.actor where First_name like 'A%' and last_name like 'B%';
+
+select* from sakila.actor where first_name like '%A';
+
+select* from sakila.actor where first_name like '%A%';
+
+select* from sakila.actor where first_name like 'A%e';
+
+select*from sakila.film where release_year = 2006 and title like 'Ali%';
+
+select f.title,f.description,f.language_id,l.name from sakila.film f inner join sakila.language l on (f.language_id=l.language_id);
+
+select a.address as DIRECCION, c.city as Ciudad from sakila.address a inner join sakila.city c on (a.city_id = c.city_id);
+
+select c.customer_id, c.first_name,c.last_name,a.actor_id,a.first_name,a.last_name from sakila.customer c right join sakila.actor a on (c.last_name = a.last_name);
+
+select c.customer_id, c.first_name,c.last_name,a.actor_id,a.first_name,a.last_name from sakila.customer c left join sakila.actor a on (c.last_name = a.last_name);
+
+select b.address , a.city , c.country from sakila.address b inner join sakila.city a on(b.city_id=)inner join sakila.country c on (a.country_id = c.country_id);
+
+select c.first_name,a.address,s.store_id from sakila.customer c left join sakila.store s on (c.store_id = s.store_id) left join sakila.address a on (c.address_id = a.address_id);
+
+select sum(amount) from sakila.payment;
+
+select count(first_name) from sakila.actor;
+
+select avg(amount) from sakila.payment;
+
+select max(amount) from sakila.payment;
+
+select min(amount) from sakila.payment;
+
+select last_name,count(*) from sakila.actor group by Last_name;
+
+select  customer_id,max(rental_date)from sakila.rental group by (customer_id);
+
+select last_name,count(*) from sakila.actor group by 1 having count(*)>3;
+
+select p.customer_id, c.first_name,c.last_name from sakila.payment p inner join sakila.customer c on (p.customer_id=c.customer_id) group by 1,2,3 having sum(p.amount)<60 order by sum(p.amount) desc;
+
+select last_name,count(*) from sakila.actor group by last_name  having count(*) >3;
